@@ -826,6 +826,103 @@
                 return;
             }
             
+            // Enhanced feature questions and objections
+            if (lowerMessage.includes('feature') || lowerMessage.includes('what can it do') || lowerMessage.includes('capabilities')) {
+                setTimeout(() => {
+                    addMessage(`Great question! Our chatbots are incredibly powerful. Here's what they can do:\n\n🤖 AI-Powered Responses:\n• Understands natural language\n• Learns your business specifics\n• Handles complex conversations\n\n📅 Smart Scheduling:\n• Books appointments automatically\n• Sends confirmations & reminders\n• Integrates with your calendar\n\n💰 Business Features:\n• Collects deposits via text\n• Manages customer database\n• Follow-up automation\n• Analytics & reporting\n\nWhat specific feature interests you most?`);
+                    setTimeout(() => {
+                        addQuickReplies(['Appointment booking', 'Deposit collection', 'Customer management', 'Show me pricing']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            // Objection handling
+            if (lowerMessage.includes('expensive') || lowerMessage.includes('cost too much') || lowerMessage.includes('pricey')) {
+                setTimeout(() => {
+                    addMessage(objectionHandlers.pricing['too expensive']);
+                    setTimeout(() => {
+                        addQuickReplies(['Show me the math', 'What about ROI?', 'Compare with competitors', 'Annual payment option']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            if (lowerMessage.includes('think about it') || lowerMessage.includes('need time') || lowerMessage.includes('later')) {
+                setTimeout(() => {
+                    addMessage(objectionHandlers.pricing['need to think about it']);
+                    setTimeout(() => {
+                        addQuickReplies(['What concerns do you have?', 'Show me case studies', 'Let me address your worries', 'What would help you decide?']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            if (lowerMessage.includes('competitor') || lowerMessage.includes('compare') || lowerMessage.includes('other options')) {
+                setTimeout(() => {
+                    addMessage(objectionHandlers.pricing['compare with competitors']);
+                    setTimeout(() => {
+                        addQuickReplies(['Show me features', 'What about pricing?', 'Implementation time?', 'Support comparison']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            // Setup concerns
+            if (lowerMessage.includes('too long') || lowerMessage.includes('setup time') || lowerMessage.includes('how long')) {
+                setTimeout(() => {
+                    addMessage(objectionHandlers.setup['too long']);
+                    setTimeout(() => {
+                        addQuickReplies(['Show me the process', 'What happens each day?', 'Can I see progress?', 'Ready to start?']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            if (lowerMessage.includes('complicated') || lowerMessage.includes('difficult') || lowerMessage.includes('complex')) {
+                setTimeout(() => {
+                    addMessage(objectionHandlers.setup['complicated']);
+                    setTimeout(() => {
+                        addQuickReplies(['Show me the steps', 'What do I need to do?', 'How much work is it?', 'Ready to get started?']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            // Technical concerns
+            if (lowerMessage.includes('tech') || lowerMessage.includes('technical') || lowerMessage.includes('not tech savvy')) {
+                setTimeout(() => {
+                    addMessage(objectionHandlers.technical['not tech savvy']);
+                    setTimeout(() => {
+                        addQuickReplies(['How does it work?', 'What training do I get?', 'Show me examples', 'Ready to proceed?']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            // Case studies and social proof
+            if (lowerMessage.includes('case study') || lowerMessage.includes('example') || lowerMessage.includes('results') || lowerMessage.includes('proof')) {
+                setTimeout(() => {
+                    const randomCase = productKnowledge.caseStudies[Math.floor(Math.random() * productKnowledge.caseStudies.length)];
+                    addMessage(`Here's a real example:\n\n🏢 ${randomCase.business}\n\nBefore: ${randomCase.before}\nAfter: ${randomCase.after}\nTimeline: ${randomCase.timeline}\n\nThis is typical of our results! Want to see more examples or ready to get similar results for your business?`);
+                    setTimeout(() => {
+                        addQuickReplies(['Show me more examples', 'How did they do it?', 'Ready for similar results', 'What about my business?']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            // Guarantees and risk reversal
+            if (lowerMessage.includes('guarantee') || lowerMessage.includes('risk') || lowerMessage.includes('what if') || lowerMessage.includes('worried')) {
+                setTimeout(() => {
+                    addMessage(`I understand your concerns! Here's how we protect you:\n\n🛡️ ${productKnowledge.guarantees.roi}\n🛡️ ${productKnowledge.guarantees.setup}\n🛡️ ${productKnowledge.guarantees.support}\n🛡️ No long-term contracts - cancel anytime\n\nWe're confident because we've helped 500+ businesses succeed.\n\nWhat specific worry can I address?`);
+                    setTimeout(() => {
+                        addQuickReplies(['Tell me more about guarantees', 'What if it doesn\'t work?', 'How do I cancel?', 'Ready to get started?']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+            
             // Default responses
             setTimeout(() => {
                 addMessage(mariResponses.default());
