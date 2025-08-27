@@ -816,11 +816,19 @@
                 
                 return;
             }
+
+            // Form request handling
+            if (lowerMessage.includes('send me the form') || lowerMessage.includes('form') || lowerMessage.includes('intake')) {
+                setTimeout(() => {
+                    addMessage(`Perfect! I'm ready to send you the intake form right now.\n\nTo get started, I just need your email address.\n\nWhat's the best email to send your custom ${userBusiness} chatbot setup information?`);
+                }, 1000);
+                return;
+            }
             
             // Email collection
             if (lowerMessage.includes('@')) {
                 setTimeout(() => {
-                    addMessage(`Perfect! I'm sending your custom ${userBusiness} chatbot setup information to ${message} right now.\n\n🎉 WELCOME TO NEXTELEVEN! 🎉\n\nYour chatbot will be ready in 7 days and you'll start capturing every lead!\n\nExpected monthly revenue increase: $${(businessData[userBusiness].avgLoss * 1.5).toLocaleString()}\n\nOur team will call you within 24 hours to start the process!`, false, 'success');
+                    addMessage(`🎉 EXCELLENT! I'm sending your intake form to ${message} right now!\n\n📧 Check your email in the next 2 minutes for:\n• Custom ${userBusiness} chatbot setup form\n• Implementation timeline\n• Next steps\n\n📞 Our team will call you within 24 hours to:\n• Review your requirements\n• Answer any questions\n• Start building your chatbot\n\n⏰ Expected timeline: 7 days to go live\n💰 Expected ROI: Stop losing $${businessData[userBusiness].avgLoss.toLocaleString()}/month\n\nWelcome to NextEleven! 🚀`, false, 'success');
                 }, 1000);
                 
                 return;
@@ -925,11 +933,18 @@
             
             // Default responses
             setTimeout(() => {
-                addMessage(mariResponses.default());
                 if (currentStage === 'business_type') {
+                    addMessage(mariResponses.default());
                     setTimeout(() => {
                         addQuickReplies(['Tattoo Shop/Artist', 'Hair Salon/Stylist', 'Nail Salon/Tech', 'Medical Practice', 'Other Business']);
                     }, 1000);
+                } else if (currentStage === 'show_tiers' || currentStage === 'tier_selection') {
+                    addMessage("I'm here to help you choose the right tier and get started! What would you like to know more about?");
+                    setTimeout(() => {
+                        addQuickReplies(['Show all tiers', 'Business tier', 'Professional tier', 'Individual tier', 'Annual payment']);
+                    }, 1000);
+                } else {
+                    addMessage("I'm here to help you get started with your chatbot! What would you like to know?");
                 }
             }, 1000);
         }
