@@ -128,7 +128,7 @@
             flex: 1;
             padding: 20px;
             overflow-y: auto;
-            max-height: 400px;
+            max-height: 500px;
             background: #000000;
         }
 
@@ -203,7 +203,7 @@
 
         .input-area {
             padding: 20px;
-            background: #1a1a1a;
+            background: #000000;
             border-top: 1px solid #2a2a2a;
             display: flex;
             gap: 10px;
@@ -218,7 +218,7 @@
             font-size: 1em;
             transition: border-color 0.3s ease;
             background: #000000;
-            color: #14b8a6;
+            color: #ffffff;
         }
 
         .message-input:focus {
@@ -325,8 +325,8 @@
             </div>
             
             <div class="value-prop">
-                <h3>💰 Proven ROI</h3>
-                <p>Clients typically see 200-400% increase in bookings and 60% reduction in staff interruptions within 30 days.</p>
+                <h3>📈 Customers Gained & Retained</h3>
+                <p>Clients typically gain 200-400% more bookings and retain 85% more customers through instant response and follow-up.</p>
             </div>
             
             <div class="value-prop">
@@ -476,41 +476,41 @@
         const mariResponses = {
             business_type: {
                 'restaurant/food service': function(business) {
-                    return `Oh wow! Restaurants are losing SERIOUS money from communication gaps!\n\nHere's what's costing you approximately $${businessData[business].avgLoss.toLocaleString()} every month:\n\n💸 ${businessData[business].painPoints.join('\n💸 ')}\n\nThat's $${(businessData[business].avgLoss * 12).toLocaleString()} per YEAR going straight to your competitors!\n\nWhat's your name? I want to show you exactly how we stop this bleeding.`;
+                    return `Restaurants lose SERIOUS money from communication gaps!\n\nYour monthly losses: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} yearly!\n\nWhat's your name?`;
                 },
                 'hair/beauty salon': function(business) {
-                    return `Perfect! Salons are losing a fortune from missed opportunities!\n\nYour typical monthly revenue loss: $${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.join('\n💸 ')}\n\nThat's $${(businessData[business].avgLoss * 12).toLocaleString()} yearly! Every competitor with a chatbot is eating your lunch.\n\nWhat should I call you? I'm going to show you how to capture ALL these lost dollars.`;
+                    return `Salons lose a fortune from missed opportunities!\n\nMonthly revenue loss: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} yearly!\n\nWhat's your name?`;
                 },
                 'medical/dental practice': function(business) {
-                    return `Excellent! Medical practices lose the MOST money from poor communication!\n\nYour estimated monthly loss: $${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.join('\n💸 ')}\n\nThat's nearly $${Math.round(businessData[business].avgLoss * 12 / 1000)}K annually! Your staff is drowning while money walks out the door.\n\nWhat's your name? Let me show you the medical-grade solution.`;
+                    return `Medical practices lose the MOST money!\n\nMonthly loss: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's nearly ${Math.round(businessData[business].avgLoss * 12 / 1000)}K annually!\n\nWhat's your name?`;
                 },
                 'auto repair/service': function(business) {
-                    return `Smart! Auto shops lose big from communication breakdowns!\n\nYour monthly revenue leak: $${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.join('\n💸 ')}\n\nThat's $${(businessData[business].avgLoss * 12).toLocaleString()} per year! While you're under the hood, money is driving away.\n\nWhat's your name? I'll show you how our system captures every lead.`;
+                    return `Auto shops lose big from communication breakdowns!\n\nMonthly revenue leak: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} yearly!\n\nWhat's your name?`;
                 },
                 'other service business': function(business) {
-                    return `Great! Most service businesses are hemorrhaging money without realizing it!\n\nTypical monthly loss: $${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.join('\n💸 ')}\n\nThat's $${(businessData[business].avgLoss * 12).toLocaleString()} annually! Every day without automation costs you.\n\nWhat's your name? Let me customize this for your specific business.`;
+                    return `Service businesses hemorrhage money daily!\n\nMonthly loss: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} annually!\n\nWhat's your name?`;
                 }
             },
             
             name_collection: function(name, business) {
                 userName = name;
                 const data = businessData[business];
-                return `Nice to meet you, ${userName}!\n\nHere's the thing - every successful ${business} owner I talk to says the same thing: "I had no idea we were losing that much money!"\n\nOur chatbot solution for ${business} businesses includes:\n\n✅ ${data.solutions.join('\n✅ ')}\n\nResult: 200-400% increase in bookings, 60% less staff interruptions.\n\n${userName}, are you more frustrated with losing money or wasting your staff's time?`;
+                return `Nice to meet you, ${userName}!\n\nOur chatbot solution includes:\n✅ ${data.solutions.slice(0,3).join('\n✅ ')}\n\nResult: 200-400% more customers, 60% less staff interruptions.\n\n${userName}, what frustrates you most: losing money or wasting staff time?`;
             },
             
             pain_focus: {
                 'losing money': function(name, business) {
                     const data = businessData[business];
-                    return `I KNEW IT! ${userName}, you're not alone. We've helped 500+ ${business} businesses stop bleeding money.\n\nOur solution captures EVERY lead:\n📈 87% of visitors who chat convert (vs 2% who don't)\n📈 Average 340% increase in bookings\n📈 Never miss another weekend/after-hours inquiry\n📈 Automatic follow-ups that close deals\n\nOne client went from losing $4,000/month to MAKING an extra $8,000/month!\n\n${data.package} - shall we talk pricing?`;
+                    return `${userName}, we've helped 500+ ${business} businesses stop losing money.\n\nOur solution captures EVERY lead:\n📈 87% of visitors who chat convert\n📈 340% increase in bookings\n📈 Never miss after-hours inquiries\n\nOne client went from losing $4,000/month to MAKING $8,000/month!\n\n${data.package} - ready for pricing?`;
                 },
                 'wasting staff time': function(name, business) {
-                    return `EXACTLY! ${userName}, your staff should be serving customers, not answering the same questions all day!\n\nOur chatbot saves:\n⏰ 3+ hours daily answering repetitive questions\n⏰ Zero appointment booking interruptions\n⏰ Automated reminders reduce no-shows by 70%\n⏰ Staff focus on high-value work only\n\nThat's $2,400/month in labor savings alone!\n\nReady to see how this pays for itself in the first month?`;
+                    return `Exactly! ${userName}, your staff should serve customers, not answer repetitive questions!\n\nOur chatbot saves:\n⏰ 3+ hours daily on questions\n⏰ Zero booking interruptions\n⏰ 70% fewer no-shows\n\nThat's $2,400/month in labor savings!\n\nReady to see pricing?`;
                 }
             },
             
             pricing_interest: function(name, business) {
                 const data = businessData[business];
-                return `Perfect timing, ${userName}!\n\n${data.package}\n\n💰 One-time setup: Covers everything\n💰 Monthly maintenance: Only $97 (competitors charge $299+!)\n💰 ROI Timeline: Pays for itself in 3-4 weeks\n💰 Then it's pure profit: $4,000-8,000+ monthly\n\nBased on your $${businessData[business].avgLoss.toLocaleString()}/month losses, you'll make this back in 18 days.\n\nReady to stop the bleeding and start making money instead?`;
+                return `Great, ${userName}!\n\n${data.package}\n\n💰 One-time setup fee\n💰 Monthly maintenance: Only $97\n💰 Payback: 3-4 weeks\n💰 Then pure profit: $4,000-8,000+ monthly\n\nBased on your losses, you'll recover costs in 18 days.\n\nReady to stop losing money?`;
             },
             
             close: function(name) {
