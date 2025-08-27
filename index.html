@@ -355,13 +355,6 @@
                         What type of business do you own? This helps me show you exactly how much money you're losing right now.
                     </div>
                 </div>
-                <div class="quick-replies">
-                    <div class="quick-reply" onclick="sendQuickReply('Restaurant/Food Service')">🍽️ Restaurant/Food</div>
-                    <div class="quick-reply" onclick="sendQuickReply('Hair/Beauty Salon')">💇 Hair/Beauty Salon</div>
-                    <div class="quick-reply" onclick="sendQuickReply('Medical/Dental Practice')">🏥 Medical/Dental</div>
-                    <div class="quick-reply" onclick="sendQuickReply('Auto Repair/Service')">🔧 Auto Repair</div>
-                    <div class="quick-reply" onclick="sendQuickReply('Other Service Business')">🏢 Other Service</div>
-                </div>
             </div>
             
             <div class="typing-indicator" id="typingIndicator">
@@ -385,24 +378,24 @@
 
         // Business-specific data
         const businessData = {
-            'restaurant/food service': {
-                avgLoss: 6500,
+            'tattoo shop/artist': {
+                avgLoss: 7200,
                 painPoints: [
-                    'Missed reservation calls during busy hours ($1,200/month)',
-                    'No-shows without confirmation system ($2,100/month)', 
-                    'After-hours inquiries going to competitors ($1,800/month)',
-                    'Staff constantly interrupted taking orders ($1,400/month)'
+                    'Consultation requests during tattoo sessions ($2,400/month)',
+                    'No-shows killing your daily schedule ($1,800/month)', 
+                    'After-hours portfolio inquiries going unanswered ($1,600/month)',
+                    'Pricing questions interrupting artistic work ($1,400/month)'
                 ],
                 solutions: [
-                    'Automated reservation booking and confirmations',
-                    'Menu questions answered instantly',
-                    'Special dietary requirement handling',
-                    'Order status updates',
-                    'Delivery coordination'
+                    'Automated consultation booking',
+                    'Portfolio sharing with instant responses',
+                    'Deposit collection via text',
+                    'Aftercare instruction delivery',
+                    'Appointment reminders and confirmations'
                 ],
-                package: 'Professional ($997) - Perfect for restaurants'
+                package: 'Professional ($997) - Perfect for tattoo artists'
             },
-            'hair/beauty salon': {
+            'hair salon/stylist': {
                 avgLoss: 4800,
                 painPoints: [
                     'Appointment booking interruptions ($1,500/month)',
@@ -418,6 +411,23 @@
                     'Product recommendations'
                 ],
                 package: 'Professional ($997) - Most popular for salons'
+            },
+            'nail salon/tech': {
+                avgLoss: 3900,
+                painPoints: [
+                    'Group booking coordination chaos ($1,200/month)',
+                    'Last-minute cancellations ($1,100/month)',
+                    'Design inquiry management ($800/month)',
+                    'Holiday rush booking overflow ($800/month)'
+                ],
+                solutions: [
+                    'Group booking coordination',
+                    'Design gallery showcase',
+                    'Package deal promotions',
+                    'Seasonal booking management',
+                    'Loyalty program automation'
+                ],
+                package: 'Professional ($997) - Great for nail salons'
             },
             'medical/dental practice': {
                 avgLoss: 8200,
@@ -435,23 +445,6 @@
                     'Patient education materials'
                 ],
                 package: 'Premium ($1,997) - Medical-grade compliance'
-            },
-            'auto repair/service': {
-                avgLoss: 5400,
-                painPoints: [
-                    'Estimate requests during busy hours ($1,600/month)',
-                    'Service status inquiries ($1,200/month)',
-                    'After-hours emergency calls ($1,400/month)',
-                    'Parts availability questions ($1,200/month)'
-                ],
-                solutions: [
-                    'Instant estimate requests',
-                    'Service status updates',
-                    'Parts availability checking',
-                    'Appointment scheduling',
-                    'Emergency service coordination'
-                ],
-                package: 'Professional ($997) - Perfect for auto shops'
             },
             'other service business': {
                 avgLoss: 4500,
@@ -475,17 +468,17 @@
         // Mari's conversation responses
         const mariResponses = {
             business_type: {
-                'restaurant/food service': function(business) {
-                    return `Restaurants lose SERIOUS money from communication gaps!\n\nYour monthly losses: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} yearly!\n\nWhat's your name?`;
+                'tattoo shop/artist': function(business) {
+                    return `Tattoo artists lose SERIOUS money from communication gaps!\n\nYour monthly losses: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} yearly!\n\nWhat's your name?`;
                 },
-                'hair/beauty salon': function(business) {
+                'hair salon/stylist': function(business) {
                     return `Salons lose a fortune from missed opportunities!\n\nMonthly revenue loss: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} yearly!\n\nWhat's your name?`;
+                },
+                'nail salon/tech': function(business) {
+                    return `Nail techs lose big from booking chaos!\n\nMonthly revenue loss: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} yearly!\n\nWhat's your name?`;
                 },
                 'medical/dental practice': function(business) {
                     return `Medical practices lose the MOST money!\n\nMonthly loss: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's nearly ${Math.round(businessData[business].avgLoss * 12 / 1000)}K annually!\n\nWhat's your name?`;
-                },
-                'auto repair/service': function(business) {
-                    return `Auto shops lose big from communication breakdowns!\n\nMonthly revenue leak: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} yearly!\n\nWhat's your name?`;
                 },
                 'other service business': function(business) {
                     return `Service businesses hemorrhage money daily!\n\nMonthly loss: ${businessData[business].avgLoss.toLocaleString()}\n\n💸 ${businessData[business].painPoints.slice(0,2).join('\n💸 ')}\n\nThat's ${(businessData[business].avgLoss * 12).toLocaleString()} annually!\n\nWhat's your name?`;
@@ -495,12 +488,14 @@
             name_collection: function(name, business) {
                 userName = name;
                 const data = businessData[business];
+                if (!data) return `Nice to meet you, ${userName}! Let me show you how our chatbots can help your business.`;
                 return `Nice to meet you, ${userName}!\n\nOur chatbot solution includes:\n✅ ${data.solutions.slice(0,3).join('\n✅ ')}\n\nResult: 200-400% more customers, 60% less staff interruptions.\n\n${userName}, what frustrates you most: losing money or wasting staff time?`;
             },
             
             pain_focus: {
                 'losing money': function(name, business) {
                     const data = businessData[business];
+                    if (!data) return mariResponses.default();
                     return `${userName}, we've helped 500+ ${business} businesses stop losing money.\n\nOur solution captures EVERY lead:\n📈 87% of visitors who chat convert\n📈 340% increase in bookings\n📈 Never miss after-hours inquiries\n\nOne client went from losing $4,000/month to MAKING $8,000/month!\n\n${data.package} - ready for pricing?`;
                 },
                 'wasting staff time': function(name, business) {
@@ -510,6 +505,7 @@
             
             pricing_interest: function(name, business) {
                 const data = businessData[business];
+                if (!data) return "Let me get you pricing information right away!";
                 return `Great, ${userName}!\n\n${data.package}\n\n💰 One-time setup fee\n💰 Monthly maintenance: Only $97\n💰 Payback: 3-4 weeks\n💰 Then pure profit: $4,000-8,000+ monthly\n\nBased on your losses, you'll recover costs in 18 days.\n\nReady to stop losing money?`;
             },
             
@@ -589,14 +585,14 @@
             if (currentStage === 'business_type') {
                 let detectedBusiness = '';
                 
-                if (lowerMessage.includes('restaurant') || lowerMessage.includes('food') || lowerMessage.includes('cafe') || lowerMessage.includes('bar')) {
-                    detectedBusiness = 'restaurant/food service';
-                } else if (lowerMessage.includes('salon') || lowerMessage.includes('hair') || lowerMessage.includes('beauty') || lowerMessage.includes('barber')) {
-                    detectedBusiness = 'hair/beauty salon';
+                if (lowerMessage.includes('tattoo') || lowerMessage.includes('artist') || lowerMessage.includes('ink')) {
+                    detectedBusiness = 'tattoo shop/artist';
+                } else if (lowerMessage.includes('salon') || lowerMessage.includes('hair') || lowerMessage.includes('stylist') || lowerMessage.includes('barber')) {
+                    detectedBusiness = 'hair salon/stylist';
+                } else if (lowerMessage.includes('nail') || lowerMessage.includes('tech') || lowerMessage.includes('manicure') || lowerMessage.includes('pedicure')) {
+                    detectedBusiness = 'nail salon/tech';
                 } else if (lowerMessage.includes('medical') || lowerMessage.includes('dental') || lowerMessage.includes('doctor') || lowerMessage.includes('clinic')) {
                     detectedBusiness = 'medical/dental practice';
-                } else if (lowerMessage.includes('auto') || lowerMessage.includes('car') || lowerMessage.includes('repair') || lowerMessage.includes('mechanic')) {
-                    detectedBusiness = 'auto repair/service';
                 } else {
                     detectedBusiness = 'other service business';
                 }
@@ -605,7 +601,12 @@
                 currentStage = 'name_collection';
                 
                 setTimeout(() => {
-                    addMessage(mariResponses.business_type[detectedBusiness](detectedBusiness), false, 'urgency');
+                    const responseFunction = mariResponses.business_type[detectedBusiness];
+                    if (responseFunction) {
+                        addMessage(responseFunction(detectedBusiness), false, 'urgency');
+                    } else {
+                        addMessage(mariResponses.default(), false);
+                    }
                     setTimeout(() => {
                         addQuickReplies(['Tell me more', 'How does it work?', 'Show me pricing']);
                     }, 1500);
@@ -695,7 +696,7 @@
                 addMessage(mariResponses.default());
                 if (currentStage === 'business_type') {
                     setTimeout(() => {
-                        addQuickReplies(['Restaurant', 'Salon', 'Medical', 'Auto Repair', 'Other']);
+                        addQuickReplies(['Tattoo Shop/Artist', 'Hair Salon/Stylist', 'Nail Salon/Tech', 'Medical Practice', 'Other Business']);
                     }, 1000);
                 }
             }, 1000);
@@ -733,7 +734,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 addMessage("Welcome back! Ready to see how much money we can save your business? What type of business are we talking about?", false);
-                addQuickReplies(['Restaurant', 'Hair Salon', 'Medical Practice', 'Auto Repair', 'Other Business']);
+                addQuickReplies(['Tattoo Shop/Artist', 'Hair Salon/Stylist', 'Nail Salon/Tech', 'Medical Practice', 'Other Business']);
             }, 1000);
         });
     </script>
