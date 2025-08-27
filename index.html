@@ -540,7 +540,7 @@
                 userName = name;
                 const data = businessData[business];
                 if (!data) return `Nice to meet you, ${userName}! Let me show you how our chatbots can help your business.`;
-                return `Nice to meet you, ${userName}!\n\nOur chatbot solution includes:\n✅ ${data.solutions.slice(0,3).join('\n✅ ')}\n\nResult: 200-400% more customers, 60% less staff interruptions.\n\n${userName}, what frustrates you most: losing money or wasting staff time?`;
+                return `Nice to meet you, ${userName}!\n\nBefore I show you our solutions, are you:\n\nA) An individual professional (solo practitioner)\nB) A business with employees\n\nThis helps me recommend the right tier for you.`;
             },
             
             pain_focus: {
@@ -672,12 +672,38 @@
             
             // Name collection
             if (currentStage === 'name_collection' && !lowerMessage.includes('@') && lowerMessage.length > 2) {
-                currentStage = 'solution_presentation';
+                currentStage = 'business_size';
                 
                 setTimeout(() => {
                     addMessage(mariResponses.name_collection(message, userBusiness));
                     setTimeout(() => {
-                        addQuickReplies(['Losing money', 'Wasting staff time', 'Show me the solution']);
+                        addQuickReplies(['Individual professional', 'Business with employees', 'Not sure']);
+                    }, 1500);
+                }, 1000);
+                
+                return;
+            }
+
+            // Business size determination
+            if (currentStage === 'business_size') {
+                currentStage = 'show_tiers';
+                
+                let sizeResponse = '';
+                if (lowerMessage.includes('individual') || lowerMessage.includes('solo')) {
+                    sizeResponse = `Got it ${userName}! As an individual professional, you'll want to see all options. Here are our three tiers:`;
+                } else if (lowerMessage.includes('business') || lowerMessage.includes('employees')) {
+                    sizeResponse = `Perfect ${userName}! For businesses with employees, I recommend Business or Professional tier. Here are all three options:`;
+                } else {
+                    sizeResponse = `No problem ${userName}! Let me show you all three tiers so you can see what fits best:`;
+                }
+                
+                setTimeout(() => {
+                    addMessage(sizeResponse);
+                    setTimeout(() => {
+                        addMessage(mariResponses.show_all_tiers());
+                        setTimeout(() => {
+                            addQuickReplies(['Individual tier', 'Business tier', 'Professional tier', 'Annual payment']);
+                        }, 1000);
                     }, 1500);
                 }, 1000);
                 
