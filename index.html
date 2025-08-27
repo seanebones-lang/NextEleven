@@ -393,7 +393,7 @@
                     'Aftercare instruction delivery',
                     'Appointment reminders and confirmations'
                 ],
-                package: 'Professional ($997) - Perfect for tattoo artists'
+                recommendedTier: 'Business ($300 setup / $199/month) - Includes deposit collection'
             },
             'hair salon/stylist': {
                 avgLoss: 4800,
@@ -410,7 +410,7 @@
                     'Before/after photo sharing',
                     'Product recommendations'
                 ],
-                package: 'Professional ($997) - Most popular for salons'
+                recommendedTier: 'Business ($300 setup / $199/month) - Perfect for salons'
             },
             'nail salon/tech': {
                 avgLoss: 3900,
@@ -427,7 +427,7 @@
                     'Seasonal booking management',
                     'Loyalty program automation'
                 ],
-                package: 'Professional ($997) - Great for nail salons'
+                recommendedTier: 'Business ($300 setup / $199/month) - Great for nail salons'
             },
             'medical/dental practice': {
                 avgLoss: 8200,
@@ -444,7 +444,7 @@
                     'Emergency triage protocols',
                     'Patient education materials'
                 ],
-                package: 'Premium ($1,997) - Medical-grade compliance'
+                recommendedTier: 'Professional ($500 setup / $399/month) - Medical-grade compliance'
             },
             'other service business': {
                 avgLoss: 4500,
@@ -461,7 +461,58 @@
                     'Lead qualification',
                     'Follow-up automation'
                 ],
-                package: 'Professional ($997) - Adaptable to any service'
+                recommendedTier: 'Business ($300 setup / $199/month) - Adaptable to any service'
+            }
+        };
+
+        // Pricing tiers
+        const pricingTiers = {
+            individual: {
+                name: 'Individual',
+                setup: 200,
+                monthly: 99,
+                features: [
+                    'Basic FAQ responses',
+                    'Simple appointment booking',
+                    'Email support only',
+                    'Basic analytics'
+                ],
+                support: 'Email support for 30 days only',
+                deposits: false,
+                appointments: 'Basic scheduling only'
+            },
+            business: {
+                name: 'Business',
+                setup: 300,
+                monthly: 199,
+                features: [
+                    'Advanced FAQ system',
+                    'Smart appointment scheduling',
+                    'Deposit collection capability',
+                    'Customer database',
+                    'Follow-up automation',
+                    'Priority support'
+                ],
+                support: 'Phone and email support',
+                deposits: true,
+                appointments: 'Full scheduling with deposit collection'
+            },
+            professional: {
+                name: 'Professional',
+                setup: 500,
+                monthly: 399,
+                features: [
+                    'Full CRM integration',
+                    'Advanced analytics dashboard',
+                    'Multi-location support',
+                    'Custom branding',
+                    'API access',
+                    'White-label options',
+                    'Dedicated account manager'
+                ],
+                support: 'Dedicated account manager + 24/7 support',
+                deposits: true,
+                appointments: 'Enterprise-level scheduling with advanced deposit management'
             }
         };
 
@@ -496,7 +547,7 @@
                 'losing money': function(name, business) {
                     const data = businessData[business];
                     if (!data) return mariResponses.default();
-                    return `${userName}, we've helped 500+ ${business} businesses stop losing money.\n\nOur solution captures EVERY lead:\n📈 87% of visitors who chat convert\n📈 340% increase in bookings\n📈 Never miss after-hours inquiries\n\nOne client went from losing $4,000/month to MAKING $8,000/month!\n\n${data.package} - ready for pricing?`;
+                    return `${userName}, we've helped 500+ ${business} businesses stop losing money.\n\nOur solution captures EVERY lead:\n📈 87% of visitors who chat convert\n📈 340% increase in bookings\n📈 Never miss after-hours inquiries\n\nOne client went from losing $4,000/month to MAKING $8,000/month!\n\n${data.recommendedTier} - ready for pricing?`;
                 },
                 'wasting staff time': function(name, business) {
                     return `Exactly! ${userName}, your staff should serve customers, not answer repetitive questions!\n\nOur chatbot saves:\n⏰ 3+ hours daily on questions\n⏰ Zero booking interruptions\n⏰ 70% fewer no-shows\n\nThat's $2,400/month in labor savings!\n\nReady to see pricing?`;
@@ -506,11 +557,15 @@
             pricing_interest: function(name, business) {
                 const data = businessData[business];
                 if (!data) return "Let me get you pricing information right away!";
-                return `Great, ${userName}!\n\n${data.package}\n\n💰 One-time setup fee\n💰 Monthly maintenance: Only $97\n💰 Payback: 3-4 weeks\n💰 Then pure profit: $4,000-8,000+ monthly\n\nBased on your losses, you'll recover costs in 18 days.\n\nReady to stop losing money?`;
+                return `Perfect, ${userName}!\n\n${data.recommendedTier}\n\n✅ Includes appointment scheduling\n✅ Deposit collection (Business+ tiers)\n✅ Customer database\n✅ Follow-up automation\n\n💡 BONUS: Annual payment waives ALL setup fees!\n\nReady to stop losing money and start capturing every lead?`;
             },
             
+            show_all_tiers: function() {
+                return `Here are all our pricing tiers:\n\n🥉 Individual: $200 setup / $99/month\n• Basic FAQ & scheduling\n• Email support (30 days only)\n• NO deposit collection\n\n🥈 Business: $300 setup / $199/month\n• Advanced scheduling + deposit collection\n• Phone & email support\n• Customer database\n\n🥇 Professional: $500 setup / $399/month\n• Full CRM integration\n• Dedicated account manager\n• Multi-location support\n\n💡 Annual payment waives ALL setup fees!\n\nWhich tier fits your needs?`;
+            },
+
             close: function(name) {
-                return `Outstanding, ${userName}! Here's what happens next:\n\n1️⃣ I send you a quick intake form (2 minutes)\n2️⃣ Our team builds your custom chatbot (7 days)\n3️⃣ We install it and train your staff (1 day)\n4️⃣ You start capturing every lead 24/7!\n\n🎯 Expected result: $4,000-12,000 additional monthly revenue\n\nWhat's the best email to send your intake form?`;
+                return `Outstanding, ${userName}! Here's what happens next:\n\n1️⃣ Choose your tier and payment plan\n2️⃣ We build your custom chatbot (7 days)\n3️⃣ Install and train your staff (1 day)\n4️⃣ Start capturing every lead 24/7!\n\n🎯 Expected result: Stop losing $3,000-8,000+ monthly\n\nWhat's the best email to send your setup information?`;
             },
             
             default: function() {
@@ -657,16 +712,70 @@
             }
             
             // Pricing interest
-            if (lowerMessage.includes('pricing') || lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('yes')) {
-                currentStage = 'closing';
+            if (lowerMessage.includes('pricing') || lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('yes') || lowerMessage.includes('show me')) {
+                currentStage = 'tier_selection';
                 
                 setTimeout(() => {
                     addMessage(mariResponses.pricing_interest(userName, userBusiness), false, 'success');
                     setTimeout(() => {
-                        addQuickReplies(['Get started now', 'I need to think about it', 'What about contracts?']);
+                        addQuickReplies(['Show all tiers', 'Business tier works', 'Professional tier', 'Individual tier']);
                     }, 1500);
                 }, 1000);
                 
+                return;
+            }
+
+            // Show all tiers
+            if (lowerMessage.includes('show all') || lowerMessage.includes('all tiers') || lowerMessage.includes('compare')) {
+                setTimeout(() => {
+                    addMessage(mariResponses.show_all_tiers());
+                    setTimeout(() => {
+                        addQuickReplies(['Individual tier', 'Business tier', 'Professional tier', 'Annual payment']);
+                    }, 1500);
+                }, 1000);
+                
+                return;
+            }
+
+            // Tier selection
+            if (lowerMessage.includes('individual tier') || lowerMessage.includes('individual')) {
+                setTimeout(() => {
+                    addMessage('Individual tier selected!\n\n$200 setup + $99/month\n• Basic scheduling (no deposits)\n• Email support for 30 days only\n• Good for solopreneurs just starting\n\nNote: No deposit collection at this level.\n\nReady to get started?');
+                    setTimeout(() => {
+                        addQuickReplies(['Get started', 'Upgrade to Business', 'Annual payment option']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            if (lowerMessage.includes('business tier') || lowerMessage.includes('business')) {
+                setTimeout(() => {
+                    addMessage('Business tier selected!\n\n$300 setup + $199/month\n• Full appointment scheduling\n• Deposit collection capability\n• Phone & email support\n• Customer database\n\nPerfect for most service businesses!\n\nReady to move forward?');
+                    setTimeout(() => {
+                        addQuickReplies(['Get started', 'Annual payment option', 'Tell me more']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            if (lowerMessage.includes('professional tier') || lowerMessage.includes('professional')) {
+                setTimeout(() => {
+                    addMessage('Professional tier selected!\n\n$500 setup + $399/month\n• Everything in Business +\n• Multi-location support\n• Dedicated account manager\n• Full CRM integration\n• White-label options\n\nBest for established businesses!\n\nShall we get started?');
+                    setTimeout(() => {
+                        addQuickReplies(['Get started', 'Annual payment saves setup fees', 'Perfect for us']);
+                    }, 1500);
+                }, 1000);
+                return;
+            }
+
+            // Annual payment
+            if (lowerMessage.includes('annual') || lowerMessage.includes('yearly')) {
+                setTimeout(() => {
+                    addMessage('Smart choice! Annual payment benefits:\n\n• Setup fees completely WAIVED\n• Lock in current pricing\n• Priority support\n• No price increases for 12 months\n\nWhich tier with annual payment?\n\nIndividual: $1,188/year (save $200)\nBusiness: $2,388/year (save $300) \nProfessional: $4,788/year (save $500)');
+                    setTimeout(() => {
+                        addQuickReplies(['Business annual', 'Professional annual', 'Individual annual']);
+                    }, 1500);
+                }, 1000);
                 return;
             }
             
